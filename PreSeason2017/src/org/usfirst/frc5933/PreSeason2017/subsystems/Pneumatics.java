@@ -14,7 +14,7 @@ package org.usfirst.frc5933.PreSeason2017.subsystems;
 import org.usfirst.frc5933.PreSeason2017.RobotMap;
 import org.usfirst.frc5933.PreSeason2017.commands.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -46,6 +46,16 @@ public class Pneumatics extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void turnClawsOff() {
+    	bottomSolenoid.set(Value.kOff);
+    	upperSolenoid.set(Value.kOff);
+    }
+    
+    public void setClaws(Value value) {
+    	bottomSolenoid.set(value);
+    	upperSolenoid.set(value);
     }
 }
 

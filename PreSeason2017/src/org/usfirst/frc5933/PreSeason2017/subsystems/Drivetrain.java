@@ -56,13 +56,25 @@ public class Drivetrain extends Subsystem {
     public void teleopDrive() {
     	robotDrive.arcadeDrive(Robot.oi.driverStick);
     }
-    
+    /**
+     * This method runs the left gearbox motors at a set %vbus. Give it an ideal %vbus, the adjustment
+     * is inside the method.
+     * @param vbus
+     * An ideal voltage to run the motors at.
+     */
     public void driveLeft(double vbus) {
+    	vbus = vbus / Robot.roboRio.getVBusProportion();
     	frontLeft.set(vbus);
     	backLeft.set(vbus);
     }
-    
+    /**
+     * This method runs the right gearbox motors at a set %vbus. Give it an ideal %vbus, the adjustment
+     * is inside the method.
+     * @param vbus
+     * An ideal voltage to run the motors at.
+     */
     public void driveRight(double vbus) {
+    	vbus = vbus / Robot.roboRio.getVBusProportion();
     	frontRight.set(vbus);
     	backRight.set(vbus);
     }

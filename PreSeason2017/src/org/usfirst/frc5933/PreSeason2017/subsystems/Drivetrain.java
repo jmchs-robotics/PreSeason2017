@@ -11,6 +11,7 @@
 
 package org.usfirst.frc5933.PreSeason2017.subsystems;
 
+import org.usfirst.frc5933.PreSeason2017.Robot;
 import org.usfirst.frc5933.PreSeason2017.RobotMap;
 import org.usfirst.frc5933.PreSeason2017.commands.*;
 import com.ctre.CANTalon;
@@ -50,6 +51,20 @@ public class Drivetrain extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void teleopDrive() {
+    	robotDrive.arcadeDrive(Robot.oi.driverStick);
+    }
+    
+    public void driveLeft(double vbus) {
+    	frontLeft.set(vbus);
+    	backLeft.set(vbus);
+    }
+    
+    public void driveRight(double vbus) {
+    	frontRight.set(vbus);
+    	backRight.set(vbus);
     }
 }
 

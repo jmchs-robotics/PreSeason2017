@@ -50,8 +50,7 @@ public class SimpleDriveStraight extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		timer = new Timer();
-		timer.start();
+		setTimeout(seconds);
 
 		Robot.drivetrain.tankDrive(vbus, vbus);
 	}
@@ -63,7 +62,7 @@ public class SimpleDriveStraight extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return timer.get() >= seconds;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true

@@ -84,20 +84,32 @@ public class RoboRio extends Subsystem {
      * Whether or not the resolution of vectors is greater than or equal to the threshold. Defaults to true.
      */
     public boolean accelOverThreshold(AccelerometerDirection dir, double threshold) {
-    	switch(dir) {
+    	return Math.abs(getAcceleration(dir)) >= Math.abs(threshold);
+    }
+    
+    /**
+     * A single method to get all the accelerometer values you could possibly want.
+     * @param dir
+     * The direction(s) to get acceleration from. Horizontal and Total return positive values only because the resolution of
+     * two or more vectors (in this case, the accelerations) is defined as sqrt(X^2 + Y^2 + Z^2) and for any pair.
+     * @return
+     * The appropriate value - either accelerometer.getX() .getY() or .getZ() or a resolution of the horizontal components or all three.
+     * If an inappropriate AccelerometerDirection is passed, the result is positive infinity.
+     */
+    public double getAcceleration(AccelerometerDirection dir) {
+    	switch (dir) {
     	case X:
-    		return Math.abs(accelerometer.getX()) >= Math.abs(threshold);
+    		return accelerometer.getX();
     	case Y:
-    		return Math.abs(accelerometer.getY()) >= Math.abs(threshold);
+    		return accelerometer.getY();
     	case Z:
-    		return Math.abs(accelerometer.getZ()) >= Math.abs(threshold);
+    		return accelerometer.getZ();
     	case Horizontal:
-    		return Math.sqrt(Math.pow(accelerometer.getX(),2) + Math.pow(accelerometer.getZ(),2)) >= Math.abs(threshold);
+    		return Math.sqrt(Math.pow(accelerometer.getX(), 2) + Math.pow(accelerometer.getY(), 2));
     	case Total:
-    		return Math.sqrt(Math.pow(accelerometer.getX(),2) + Math.pow(accelerometer.getZ(),2) + 
-    				Math.pow(accelerometer.getY(), 2)) >= Math.abs(threshold);
+    		return Math.sqrt(Math.pow(accelerometer.getX(), 2) + Math.pow(accelerometer.getZ(), 2) + Math.pow(accelerometer.getY(), 2));
     	default:
-    		return true;
+    		return Double.POSITIVE_INFINITY;
     	}
     }
     

@@ -48,21 +48,21 @@ public class AutonomousGroup extends CommandGroup {
     	 */
     	
     	//drive forward to the flag
-    	addSequential(new SimpleDriveStraight());
+    	addSequential(new SimpleDriveStraight(1, 5));
     	
     	//grab the flag
     	addSequential(new CloseAllClaws());
     	
     	//drive backwards to the flag zone
-    	addSequential(new SimpleDriveStraight());
+    	addSequential(new SimpleDriveStraight(-1, 10));
     	
     	//release the flag
     	addSequential(new OpenAllClaws());
     	
     	//turn away from the flag
-    	addSequential(new SimpleTurn());
+    	addSequential(new SimpleTurn(0.3, 90));
     	
     	//drive away from the flag
-    	addSequential(new SimpleDriveStraight());
+    	addSequential(new SimpleDriveStraight(1, 2));
     }
 }

@@ -11,6 +11,8 @@
 
 package org.usfirst.frc5933.PreSeason2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+
 import org.usfirst.frc5933.PreSeason2017.Robot;
 
 /**
@@ -42,6 +44,14 @@ public class UnpowerAllClaws extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.pneumatics.turnClawsOff();
+    	
+    	if(Robot.roboRio.getBackFlagSwitch() || Robot.roboRio.getFrontFlagSwitch()) {
+    		Scheduler.getInstance().add(new CloseAllClaws());
+    		/*
+    		 * This has the effect of interrupting this command and starting a run of the close claws command
+    		 * So effectively the robot will act like a flytrap - if the flag hits a switch, close the claws on it.
+    		 */
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -104,7 +104,8 @@ public class RoboRio extends Subsystem {
      * A single method to get all the accelerometer values you could possibly want.
      * @param dir
      * The direction(s) to get acceleration from. Horizontal and Total return positive values only because the resolution of
-     * two or more vectors (in this case, the accelerations) is defined as sqrt(X^2 + Y^2 + Z^2) and for any pair.
+     * two or more vectors (in this case, the accelerations) is defined as sqrt(X^2 + Y^2 + Z^2), or for any pair. The horizontal
+     * vectors are X and Y.
      * @return
      * The appropriate value - either accelerometer.getX() .getY() or .getZ() or a resolution of the horizontal components or all three.
      * If an inappropriate AccelerometerDirection is passed, the result is positive infinity.
@@ -140,10 +141,20 @@ public class RoboRio extends Subsystem {
     	return getBatteryVoltage() / kNomialBatteryVoltage;
     }
     
+    /**
+     * Gets the boolean equivalent of the limit switch on the front of the bot.
+     * @return
+     * True if closed.
+     */
     public boolean getFrontFlagSwitch() {
     	return frontFlagSwitch.get();
     }
     
+    /**
+     * Gets the boolean equivalent of the limit switch on the back of the bot.
+     * @return
+     * True if closed.
+     */
     public boolean getBackFlagSwitch() {
     	return backFlagSwitch.get();
     }

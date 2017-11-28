@@ -60,6 +60,12 @@ public class Drivetrain extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
+	/**
+	 * This is a good example of why we use commands. Even though all the "movement" is handled by the 
+	 * subsystem, it only happens when it is called by the command architecture. This is not in the Robot.teleop
+	 * method because there is a chance that you may want to use the vision processing commands, for example, during
+	 * teleop without interruption (or damage caused by interruption) from the driver bumping the joystick.
+	 */
 	public void teleopDrive() {
 		robotDrive.arcadeDrive(Robot.oi.driverStick);
 	}

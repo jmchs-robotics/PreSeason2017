@@ -118,6 +118,11 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        LiveWindow.run();
+        
+        drivetrain.periodic();
+        pneumatics.periodic();
+        roboRio.periodic();
     }
 
     /**

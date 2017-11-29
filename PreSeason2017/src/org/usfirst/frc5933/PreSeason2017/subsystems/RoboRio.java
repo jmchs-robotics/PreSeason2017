@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -65,6 +66,13 @@ public class RoboRio extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    
+    /**
+     * Contains appropriate {@link SmartDashboard} outputs for the driver station.
+     */
+    public void periodic() {
+    	SmartDashboard.putNumber("Gyroscope: ", readGyro());
     }
     
     /**

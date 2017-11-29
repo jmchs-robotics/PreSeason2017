@@ -16,6 +16,7 @@ import org.usfirst.frc5933.PreSeason2017.commands.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -50,6 +51,13 @@ public class Pneumatics extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    
+    /**
+     * Contains appropriate {@link SmartDashboard} outputs for the pneumatics system.
+     */
+    public void periodic() {
+    	SmartDashboard.putString("Solenoid Position", frontSolenoid.get().toString());
     }
     
     public void turnClawsOff() {

@@ -71,8 +71,11 @@ public class RoboRio extends Subsystem {
     /**
      * Contains appropriate {@link SmartDashboard} outputs for the driver station.
      */
-    public void periodic() {
+    public void sensorPeriodic() {
     	SmartDashboard.putNumber("Gyroscope: ", readGyro());
+    	SmartDashboard.putNumber("Accelerometer X: ", getAcceleration(AccelerometerDirection.X));
+    	SmartDashboard.putNumber("Accelerometer Y: ", getAcceleration(AccelerometerDirection.Y));
+    	SmartDashboard.putNumber("Accelerometer Z: ", getAcceleration(AccelerometerDirection.Z));
     }
     
     /**

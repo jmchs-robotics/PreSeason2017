@@ -56,8 +56,8 @@ public class Pneumatics extends Subsystem {
     /**
      * Contains appropriate {@link SmartDashboard} outputs for the pneumatics system.
      */
-    public void periodic() {
-    	SmartDashboard.putString("Solenoid Position", frontSolenoid.get().toString());
+    public void sensorPeriodic() {
+    	SmartDashboard.putString("Solenoid Position: ", frontSolenoid.get().toString());
     }
     
     public void turnClawsOff() {

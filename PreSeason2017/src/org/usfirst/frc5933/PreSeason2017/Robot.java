@@ -86,6 +86,10 @@ public class Robot extends IterativeRobot {
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        
+        drivetrain.sensorPeriodic();
+        pneumatics.sensorPeriodic();
+        roboRio.sensorPeriodic();
     }
 
     public void autonomousInit() {
@@ -100,6 +104,10 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        drivetrain.sensorPeriodic();
+        pneumatics.sensorPeriodic();
+        roboRio.sensorPeriodic();
     }
 
     public void teleopInit() {
@@ -120,9 +128,9 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         LiveWindow.run();
         
-        drivetrain.periodic();
-        pneumatics.periodic();
-        roboRio.periodic();
+        drivetrain.sensorPeriodic();
+        pneumatics.sensorPeriodic();
+        roboRio.sensorPeriodic();
     }
 
     /**

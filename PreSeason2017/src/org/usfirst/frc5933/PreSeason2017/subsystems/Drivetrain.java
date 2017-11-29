@@ -66,8 +66,8 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Put appropriate sensor outputs here if needed, or things to put on the SmartDashboard.
 	 */
-	public void periodic() {
-		SmartDashboard.putBoolean("Brake Mode Enabled:", talonBrakeMode);
+	public void sensorPeriodic() {
+		SmartDashboard.putBoolean("Brake Mode Enabled: ", talonBrakeMode);
 	}
 
 	/**

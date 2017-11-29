@@ -101,6 +101,25 @@ public class OI {
         driverStart = new JoystickButton(driverStick, 8);
         driverLeftToggle = new JoystickButton(driverStick, 9);
         driverRightToggle = new JoystickButton(driverStick, 10);
+        
+        subsystemStick = new Joystick(1);
+
+        subsystemA = new JoystickButton(subsystemStick, 1);
+        subsystemA.whenPressed(new CloseAllClaws());
+        subsystemB = new JoystickButton(subsystemStick, 2);
+        subsystemB.whenPressed(new OpenAllClaws());
+        subsystemX = new JoystickButton(subsystemStick, 3);
+        subsystemX.whenPressed(new NullCommand());
+        subsystemY = new JoystickButton(subsystemStick, 4);
+        subsystemY.whenPressed(new NullCommand());
+        subsystemLeftBumper = new JoystickButton(subsystemStick, 5);
+        subsystemLeftBumper.whenPressed(new NullCommand());
+        subsystemRightBumper = new JoystickButton(subsystemStick, 6);
+        subsystemRightBumper.whenActive(new NullCommand());
+        subsystemBack = new JoystickButton(subsystemStick, 7);
+        subsystemStart = new JoystickButton(subsystemStick, 8);
+        subsystemLeftToggle = new JoystickButton(subsystemStick, 9);
+        subsystemRightToggle = new JoystickButton(subsystemStick, 10);
        
         
 

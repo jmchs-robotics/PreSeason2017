@@ -104,6 +104,7 @@ public class OI {
         driverLeftToggle = new JoystickButton(driverStick, 9);
         driverLeftToggle.whenPressed(new NullCommand());
         driverRightToggle = new JoystickButton(driverStick, 10);
+<<<<<<< HEAD
         driverRightToggle.whenPressed(new NullCommand());
         
         subsystemStick = new Joystick(1);
@@ -128,6 +129,12 @@ public class OI {
         subsystemLeftToggle.whenPressed(new NullCommand());
         subsystemRightToggle = new JoystickButton(subsystemStick, 10);
         subsystemRightToggle.whenPressed(new NullCommand());
+        subsystemRightBumper.whenActive(new NullCommand());
+        subsystemBack = new JoystickButton(subsystemStick, 7);
+        subsystemStart = new JoystickButton(subsystemStick, 8);
+        subsystemLeftToggle = new JoystickButton(subsystemStick, 9);
+        subsystemRightToggle = new JoystickButton(subsystemStick, 10);
+       
         
 
         // SmartDashboard Buttons

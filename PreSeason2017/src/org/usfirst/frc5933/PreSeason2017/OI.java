@@ -104,7 +104,7 @@ public class OI {
         driverLeftToggle = new JoystickButton(driverStick, 9);
         driverLeftToggle.whenPressed(new NullCommand());
         driverRightToggle = new JoystickButton(driverStick, 10);
-<<<<<<< HEAD
+
         driverRightToggle.whenPressed(new NullCommand());
         
         subsystemStick = new Joystick(1);

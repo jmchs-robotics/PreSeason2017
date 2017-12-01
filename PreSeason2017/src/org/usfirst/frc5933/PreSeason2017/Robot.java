@@ -31,6 +31,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
 
+    public static boolean isDisabled;
     public static final boolean show_debug_vision = true;
     
     public static SocketVision frontWatcher;
@@ -72,7 +73,8 @@ public class Robot extends IterativeRobot {
      * This function is called when the disabled button is hit.
      * You can use it to reset subsystems before shutting down.
      */
-    public void disabledInit(){
+    public void disabledInit(){	
+    	isDisabled = true;
     	if (frontWatcher != null) {
 			try {
 				frontWatcher.stoprunning();
@@ -82,6 +84,8 @@ public class Robot extends IterativeRobot {
 				e.printStackTrace();
 			}
 		}
+    	
+    	if(!roboRio.isGyroCalibrated) roboRio.calibrateGyo();
     }
 
     public void disabledPeriodic() {
@@ -93,6 +97,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	isDisabled = false;
     	drivetrain.setBrakeMode(true);
     	visionInit();
         // schedule the autonomous command (example)    	
@@ -111,6 +116,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
+    	isDisabled = false;
     	visionInit();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to

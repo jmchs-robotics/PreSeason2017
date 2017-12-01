@@ -31,7 +31,7 @@ public class Drivetrain extends Subsystem {
 	 * tested in a game/field environment before competition. Each PID controller
 	 * that we use may need unique constants, so name them appropriately.
 	 */
-	public final double kGyroProportionConst = 0.001; //The proportion constant for the drive train -- NEEDS TO BE TESTED
+	public final double kGyroProportionConst = 0.01; //The proportion constant for the drive train -- NEEDS TO BE TESTED
 	
 	private boolean talonBrakeMode = false;
 

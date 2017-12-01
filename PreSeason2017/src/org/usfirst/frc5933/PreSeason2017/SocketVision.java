@@ -10,10 +10,16 @@ import java.net.UnknownHostException;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SocketVision extends Thread {
+	// set up all the important variables and constants for use.
+	
+	//these three strings are the three horizontal positions the flag can have:
+	//left, center (nada), right, and not found (nada). The names of the strings
+	//refer to the movement the robot will need to do in their cases.
 	public static final String NADA = "nada";
 	public static final String RIGHT = "right";
 	public static final String LEFT = "left";
 
+	//These are all variables relating to getting and parsing the UDP datastream.
 	private String ip_;
 	private int port_;
 	private boolean is_connected_ = false;
@@ -52,8 +58,6 @@ public class SocketVision extends Thread {
 	 * This function tries to create a new DatagramSocket object with the port and ip set in the constructor.
 	 * 
 	 * @return true if IP and port are valid
-	 * @return <code>true</code> <strong>IF</strong> valid IP <strong>AND</strong> port
-	 * <p></p> <code>false</code> <strong>IF</strong> invalid IP <strong>OR</strong> port
 	 */
 	public boolean connect() {
 		try {
@@ -70,6 +74,11 @@ public class SocketVision extends Thread {
 		return true;
 	}
 
+	/**
+	 * Get whether or not the udp is properly connected
+	 * @return
+	 * true if connected
+	 */
 	public boolean is_connected() {
 		return is_connected_;
 	}
@@ -93,7 +102,7 @@ public class SocketVision extends Thread {
 				 * Finally, use the indices of appropriate data (as shown in the
 				 * example) to share the new info with the rest of the robot.
 				 * Since these are both threaded, synchronization is an issue,
-				 * but is handled nicely later on.
+				 * but is handled nicely later on in synchronized methods.
 				 */
 
 				String stuffInThePacket = new String(packet.getData(), 0, packet.getLength());
@@ -134,7 +143,7 @@ public class SocketVision extends Thread {
 				// now is: {"-100.14","20.33","15.75","172.56","l"} Look at the
 				// last and first indices (pl. index) for the difference
 
-				// following example, is-100.14
+				// following example, is -100.14
 				double ldegrees_x = Double.parseDouble(packetParsing[0]);
 
 				// is 20.33
@@ -151,6 +160,7 @@ public class SocketVision extends Thread {
 				 * still valid otherwise.
 				 */
 				double ldistanceH = Double.parseDouble(packetParsing[4]);
+				
 				String ldirection_;
 				if (packetParsing[5].equalsIgnoreCase("l")) {
 					ldirection_ = LEFT;
@@ -218,6 +228,11 @@ public class SocketVision extends Thread {
 
 	// the below methods are the easiest way to access the data that was grabbed
 	// from the string below
+	/**
+	 * Get the string representation of the direction
+	 * @return
+	 * left, nada, right
+	 */
 	public synchronized String get_direction() {
 		String tmp = NADA;
 
@@ -228,30 +243,55 @@ public class SocketVision extends Thread {
 		return tmp;
 	}
 
+	/**
+	 * Get the number of degrees for the robot to turn in the X direction (left and right)
+	 * @return
+	 * a number representing the distance from center of the target on the image
+	 */
 	public synchronized double get_degrees_x() {
 		double tmp = degrees_x;
 		degrees_x = 0;
 		return tmp;
 	}
 
+	/**
+	 * Get the number of degrees for the robot to accomodate in the Y direction (up and down)
+	 * @return
+	 * a number representing the height of the target on the image
+	 */
 	public synchronized double get_degrees_y() {
 		double tmp = degrees_y;
 		degrees_y = 0;
 		return tmp;
 	}
 
+	/**
+	 * Get the width of the image... I think...
+	 * @return
+	 * a number representation of whatever this is supposed to get.
+	 */
 	public synchronized double get_width() {
 		double tmp = degrees_width;
 		degrees_width = 0;
 		return tmp;
 	}
 
+	/**
+	 * Get a distance guess based on the relative height of the target
+	 * @return
+	 * a number representation of the target's relative distance
+	 */
 	public synchronized double get_distance_height() {
 		double tmp = distanceHeight;
 		distanceHeight = 0;
 		return tmp;
 	}
 
+	/**
+	 * Get a distance guess based on the relative width of the target
+	 * @return
+	 * a number representation of the target's relative distance
+	 */
 	public synchronized double get_distance_width() {
 		double tmp = distanceWidth;
 		distanceWidth = 0;

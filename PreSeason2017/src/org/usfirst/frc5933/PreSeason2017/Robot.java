@@ -74,20 +74,23 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){	
-    	isDisabled = true;
-    	if (frontWatcher != null) {
+    	isDisabled = true; //keep up the self-awareness
+    	if (frontWatcher != null) { //kill the multithreaded UDP socket
 			try {
 				frontWatcher.stoprunning();
 				frontWatcher.join();
 				frontWatcher = null;
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception e) { //general catch because there could be more than one thrown exception
+				e.printStackTrace(); 
 			}
 		}
     	
-    	if(!roboRio.isGyroCalibrated) roboRio.calibrateGyo();
+    	if(!roboRio.isGyroCalibrated) roboRio.calibrateGyo(); //calibrate the gyro in ~5sec on first startup (or software reboot) only
     }
 
+    /**
+     * This is run periodically while the robot is disabled, after disabledInit.
+     */
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
         
@@ -96,6 +99,9 @@ public class Robot extends IterativeRobot {
         roboRio.sensorPeriodic();
     }
 
+    /**
+     * This is called once when the autonomous button is hit, or the FMS starts autonomous.
+     */
     public void autonomousInit() {
     	isDisabled = false;
     	drivetrain.setBrakeMode(true);
@@ -115,6 +121,9 @@ public class Robot extends IterativeRobot {
         roboRio.sensorPeriodic();
     }
 
+    /**
+     * This is called once when the teleop button is hit, or the FMS starts teleop.
+     */
     public void teleopInit() {
     	isDisabled = false;
     	visionInit();
@@ -146,6 +155,10 @@ public class Robot extends IterativeRobot {
         LiveWindow.run();
     }
     
+    /**
+     * This instantiates the vision processing object and separate thread, which has to be closed
+     * down in disabled due to FMS restrictions. Should be called only once in autonomous and teleop init.
+     */
     private void visionInit() {
 		if (frontWatcher == null) {
 			frontWatcher = new SocketVision("10.59.33.255", 5800);

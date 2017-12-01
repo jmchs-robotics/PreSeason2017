@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
+ * the wiring easier and significantly reduces the amount of magic numbers
  * floating around.
  */
 public class RobotMap {
@@ -38,8 +38,8 @@ public class RobotMap {
     public static CANTalon drivetrainFrontRight;
     public static CANTalon drivetrainBackRight;
     public static RobotDrive drivetrainRobotDrive;
-    public static ADXRS450_Gyro roboRioMainGyro;
-    public static PowerDistributionPanel roboRioPowerDistributionPanel; //useful in "dumb" controllers
+    public static ADXRS450_Gyro roboRioMainGyro; //not from Robot Builder. A pain to type, but very accurate and useful gyro (once calibrated).
+    public static PowerDistributionPanel roboRioPowerDistributionPanel; //useful in "dumb" controllers to standardize motor movement.
     public static BuiltInAccelerometer roboRioAccelerometer; //Not from Robot Builder. A specific, built-in accelerometer.
     public static DigitalInput roboRioFrontFlagSwitch;
     public static DigitalInput roboRioBackFlagSwitch;

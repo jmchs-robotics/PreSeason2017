@@ -150,6 +150,11 @@ public class RoboRio extends Subsystem {
     	}
     }
     
+    /**
+     * Returns the current input voltage to the PDP
+     * @return
+     * The voltage of the PDP in volts.
+     */
     public double getBatteryVoltage() {
     	return powerDistributionPanel.getVoltage();
     }

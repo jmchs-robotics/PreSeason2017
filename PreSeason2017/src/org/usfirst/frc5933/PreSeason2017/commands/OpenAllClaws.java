@@ -39,12 +39,12 @@ public class OpenAllClaws extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.pneumatics.setClaws(Value.kForward);
-    	setTimeout(Robot.pneumatics.kSolenoidFireTime);
+    	setTimeout(Robot.pneumatics.kSolenoidFireTime); //use the standard fire time from the subsystem to keep arbitrary numbers from floating around
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.pneumatics.setClaws(Value.kForward);
+    	Robot.pneumatics.setClaws(Value.kForward); //just like motors, keep setting the value. It doesn't hurt.
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -53,7 +53,7 @@ public class OpenAllClaws extends Command {
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    protected void end() { //turning the solenoids off is handled by the default command for Pneumatics.java so don't put anything here
     }
 
     // Called when another command which requires one or more of the same

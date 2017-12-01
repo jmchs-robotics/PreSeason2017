@@ -43,10 +43,10 @@ public class DriveStraightGyro extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    protected void initialize() { //on start, zero the gyro and set the default heading. The gyroscope should be calibrated by this point.
     	Robot.roboRio.resetGyro();
     	initialHeading = Robot.roboRio.readGyro();
-    	setTimeout(seconds);
+    	setTimeout(seconds); //set the timeout of the command.
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -62,23 +62,23 @@ public class DriveStraightGyro extends Command {
     	//when the proportion is 0, the left and right gearboxes should run at the same vbus.
     	//when the proportion is not 0, one side of the drivetrain should speed up and the other slow down.
     	
-    	//needs to be tested: the + and - may need to be switched.
+    	//This is the setup for our robot this year. It may switch with different drivetrain setups.
     	Robot.drivetrain.tankDrive(feedForwardVBus - proportionOffset, feedForwardVBus + proportionOffset);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut(); //use the timeout methods inherent in commands for time-based execution
+        return isTimedOut(); //use the timeout methods inherent in commands for time-based execution. May change to thresholded acceleration or vision processing
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.stopAll();
+    	Robot.drivetrain.stopAll(); //stop when done.
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
+    	end(); //may as well stop when interrupted too.
     }
 }

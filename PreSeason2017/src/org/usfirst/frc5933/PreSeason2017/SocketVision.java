@@ -30,8 +30,6 @@ public class SocketVision extends Thread {
 	private double degrees_x = 0;
 	private double degrees_y = 0;
 	private double degrees_width = 0;
-
-	private double distanceHeight = 0;
 	private double distanceWidth = 0;
 
 	/**
@@ -114,14 +112,11 @@ public class SocketVision extends Thread {
 				// standardize everything. Just in case.
 				stuffInThePacket = stuffInThePacket.toLowerCase();
 
-				if (Robot.show_debug_vision) {
-					System.out.println("Stuff in the packet is: " + stuffInThePacket);
-				}
-
 				// make sure that this is a string you want by testing for an
 				// unique character
-				if (!stuffInThePacket.contains(":"))
+				if (!stuffInThePacket.contains(":")) {
 					return false;
+				}
 
 				// take out the identifying string to make the rest of
 				// processing easier
@@ -154,21 +149,15 @@ public class SocketVision extends Thread {
 
 				// is 172.56
 				double ldistanceW = Double.parseDouble(packetParsing[3]);
-
-				/*
-				 * ADDED 2/21/17 due to small change in UpBoard code. Example is
-				 * still valid otherwise.
-				 */
-				double ldistanceH = Double.parseDouble(packetParsing[4]);
-				
+			
 				String ldirection_;
-				if (packetParsing[5].equalsIgnoreCase("l")) {
+				if (packetParsing[4].equalsIgnoreCase("l")) {
 					ldirection_ = LEFT;
 
-				} else if (packetParsing[5].equalsIgnoreCase("r")) {
+				} else if (packetParsing[4].equalsIgnoreCase("r")) {
 					ldirection_ = RIGHT;
 
-				} else if (packetParsing[5].equalsIgnoreCase("c")) {
+				} else if (packetParsing[4].equalsIgnoreCase("c")) {
 					ldirection_ = NADA;
 
 				} else {
@@ -181,22 +170,20 @@ public class SocketVision extends Thread {
 				synchronized (this) {
 					degrees_x = ldegrees_x;
 					degrees_y = ldegrees_y;
-					degrees_width = ldegrees_width;
 					distanceWidth = ldistanceW;
-					distanceHeight = ldistanceH;
+					degrees_width = ldegrees_width;
 					direction_ = ldirection_;
 				}
 
 				if (Robot.show_debug_vision) {
 					System.out.println("Done got that data! " + stuffInThePacket);
 					SmartDashboard.putString("Port " + port_ + " output: ", stuffInThePacket);
-
 				}
 				return true;
 			}
 		} catch (Exception e) {
 			if (Robot.show_debug_vision) {
-				System.err.println(e);
+				SmartDashboard.putString("Recv Exceptions: ",String.valueOf(e));
 			}
 			return false;
 		}
@@ -212,7 +199,7 @@ public class SocketVision extends Thread {
 			if (!is_connected()) {
 				connect();
 			}
-			recv();
+			SmartDashboard.putBoolean("Vision Recv: ", recv());
 		}
 	}
 	
@@ -273,17 +260,6 @@ public class SocketVision extends Thread {
 	public synchronized double get_width() {
 		double tmp = degrees_width;
 		degrees_width = 0;
-		return tmp;
-	}
-
-	/**
-	 * Get a distance guess based on the relative height of the target
-	 * @return
-	 * a number representation of the target's relative distance
-	 */
-	public synchronized double get_distance_height() {
-		double tmp = distanceHeight;
-		distanceHeight = 0;
 		return tmp;
 	}
 

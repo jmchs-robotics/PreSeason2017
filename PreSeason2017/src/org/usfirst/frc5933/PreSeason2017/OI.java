@@ -104,7 +104,7 @@ public class OI {
         driverRightBumper = new JoystickButton(driverStick, 6);
         driverRightBumper.whenPressed(new NullCommand());
         driverBack = new JoystickButton(driverStick, 7);
-        driverBack.whenPressed(new NullCommand());
+        driverBack.whenPressed(new ReverseTeleop());			//reverse teleop
         driverStart = new JoystickButton(driverStick, 8);
         driverStart.whenPressed(new NullCommand());
         driverLeftToggle = new JoystickButton(driverStick, 9);
@@ -115,9 +115,9 @@ public class OI {
         subsystemStick = new Joystick(1);
 
         subsystemA = new JoystickButton(subsystemStick, 1);
-        subsystemA.whenPressed(new CloseAllClaws());
+        subsystemA.whenPressed(new CloseAllClaws());			//close claws
         subsystemB = new JoystickButton(subsystemStick, 2);
-        subsystemB.whenPressed(new OpenAllClaws());
+        subsystemB.whenPressed(new OpenAllClaws());				//open claws
         subsystemX = new JoystickButton(subsystemStick, 3);
         subsystemX.whenPressed(new NullCommand());
         subsystemY = new JoystickButton(subsystemStick, 4);

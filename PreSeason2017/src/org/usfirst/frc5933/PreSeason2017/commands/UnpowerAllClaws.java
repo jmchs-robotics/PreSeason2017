@@ -12,6 +12,7 @@
 package org.usfirst.frc5933.PreSeason2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc5933.PreSeason2017.Robot;
 

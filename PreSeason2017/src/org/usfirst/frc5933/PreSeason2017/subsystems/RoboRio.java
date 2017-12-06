@@ -79,6 +79,8 @@ public class RoboRio extends Subsystem {
     	SmartDashboard.putNumber("Accelerometer Y: ", getAcceleration(AccelerometerDirection.Y));
     	SmartDashboard.putNumber("Accelerometer Z: ", getAcceleration(AccelerometerDirection.Z));
     	SmartDashboard.putBoolean("Is Gyroscope Calibrated: ", isGyroCalibrated);
+    	SmartDashboard.putBoolean("Back Flag Switch: ", getBackFlagSwitch());
+    	SmartDashboard.putBoolean("Front Switch: ", getFrontFlagSwitch());
     }
     
     /**
@@ -175,7 +177,8 @@ public class RoboRio extends Subsystem {
      * True if closed.
      */
     public boolean getFrontFlagSwitch() {
-    	return frontFlagSwitch.get();
+    	//invert the output because the DIP actually reads true if disconnected (open)
+    	return !frontFlagSwitch.get();
     }
     
     /**
@@ -184,7 +187,8 @@ public class RoboRio extends Subsystem {
      * True if closed.
      */
     public boolean getBackFlagSwitch() {
-    	return backFlagSwitch.get();
+    	//invert the output because the DIP actually reads true if disconnected (open)
+    	return !backFlagSwitch.get();
     }
 }
 

@@ -42,6 +42,8 @@ public class Drivetrain extends Subsystem {
 	 * The state of the Talons SRXs w.r.t. reversed mode. True if Talons are reversed.
 	 */
 	private boolean talonReverseMode = false;
+	
+	private double rampRate = 0;
 
 	private double talonNominalOutput = +0f;
 	private double talonPeakOutput = +12.0f;
@@ -80,7 +82,6 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putBoolean("Brake Mode Enabled: ", talonBrakeMode);
 		SmartDashboard.putNumber("Joystick X: ", Robot.oi.driverStick.getX());
 		SmartDashboard.putNumber("Joystick Y: ", Robot.oi.driverStick.getY());
-		SmartDashboard.putBoolean("Talons Reversed: ", getReverseMode());
 	}
 
 	/**
@@ -132,19 +133,16 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	/**
-	 * Automatically toggles between reversing inputs and regular inputs.
+	 * Sets the talons to a specified reverse mode. True inverts the drivetrain.
 	 */
-	public void reverseTalons() {
-		talonReverseMode = !talonReverseMode;
+	public void reverseTalons(boolean reverseMode) {
+		talonReverseMode = reverseMode;
 		
-		frontLeft.reverseOutput(talonReverseMode);
-		frontRight.reverseOutput(talonReverseMode);
-		backLeft.reverseOutput(talonReverseMode);
-		backRight.reverseOutput(talonReverseMode);
-	}
-	
-	public boolean getReverseMode() {
-		return talonReverseMode;
+		robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, talonReverseMode);
+		robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, talonReverseMode);
+		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, talonReverseMode);
+		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, talonReverseMode);
+		
 	}
 	
 	public void config_nominal_and_max_voltages() {

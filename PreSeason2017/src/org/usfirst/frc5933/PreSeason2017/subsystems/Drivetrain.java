@@ -95,6 +95,7 @@ public class Drivetrain extends Subsystem {
 	public void teleopDrive() {
 		robotDrive.arcadeDrive(Robot.oi.driverStick, false);
 		
+		//these two lines are a bit of cheating, because the robotDrive object cannot accept 6 motors.
 		thirdLeft.set(frontLeft.get());
 		thirdRight.set(frontRight.get());
 	}
@@ -148,6 +149,8 @@ public class Drivetrain extends Subsystem {
 	
 	/**
 	 * Sets the talons to a specified reverse mode. True inverts the drivetrain.
+	 * We cannot use the CANTalon.reverseOutput() method because that only works in
+	 * follower mode, for whatever reason.
 	 */
 	public void reverseTalons(boolean reverseMode) {
 		talonReverseMode = reverseMode;
@@ -178,4 +181,3 @@ public class Drivetrain extends Subsystem {
 		thirdLeft.configPeakOutputVoltage(talonPeakOutput, -talonPeakOutput);
 	}
 }
-

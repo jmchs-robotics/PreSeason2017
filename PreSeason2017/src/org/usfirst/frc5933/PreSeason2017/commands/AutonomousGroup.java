@@ -60,7 +60,7 @@ public class AutonomousGroup extends CommandGroup {
     	addSequential(new OpenAllClaws());
     	
     	//turn away from the flag
-    	addSequential(new SimpleTurn(0.3, 90));
+    	addSequential(new GyroTurn());
     	
     	//drive away from the flag
     	addSequential(new DriveStraightGyro());

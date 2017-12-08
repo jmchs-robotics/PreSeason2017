@@ -10,6 +10,8 @@
 
 
 package org.usfirst.frc5933.PreSeason2017.commands;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,7 +50,7 @@ public class UnpowerAllClaws extends Command {
 
 		/* This has the effect of interrupting this command and starting a run of the close claws command
 		 * So effectively the robot will act like a flytrap - if the flag hits a switch, close the claws on it. */
-		if(Robot.roboRio.getBackFlagSwitch() || Robot.roboRio.getFrontFlagSwitch()) {
+		if(Robot.roboRio.getFrontFlagSwitch() && (Robot.pneumatics.solenoidPos == DoubleSolenoid.Value.kForward)) {
 			Scheduler.getInstance().add(new CloseAllClaws());
 		}
 	}

@@ -31,7 +31,14 @@ public class Drivetrain extends Subsystem {
 	 * tested in a game/field environment before competition. Each PID controller
 	 * that we use may need unique constants, so name them appropriately.
 	 */
-	public final double kGyroProportionConst = 0.01; //The proportion constant for the drive train -- NEEDS TO BE TESTED
+	public final double kGyroProportionConst = 0.02; //The proportion constant for the drive train -- NEEDS TO BE TESTED
+	
+	/**
+	 * The proportion constant for a P controller using the vision processing. MUST be
+	 * tested in a game/field environment before competition. Each PID controller
+	 * that we use may need unique constants, so name them appropriately.
+	 */	
+	public final double kVisionProportionConst = 0.01;
 	
 	/**
 	 * The state of the Talon SRXs w.r.t. brake mode. True if brake mode is enabled.

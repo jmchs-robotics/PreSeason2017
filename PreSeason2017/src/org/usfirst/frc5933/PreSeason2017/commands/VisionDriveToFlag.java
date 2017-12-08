@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class VisionDriveToFlag extends Command {
 	private double timeout;
 	private double feedForwardVBus;
-	private double initialHeading;
+	private double targetHeading;
 
 	public VisionDriveToFlag() {
 		// Use requires() here to declare subsystem dependencies
@@ -49,16 +49,19 @@ public class VisionDriveToFlag extends Command {
 	protected void initialize() {
 		if(Robot.frontWatcher.is_connected()) {
 			setTimeout(timeout);
-			initialHeading = 0;
+			targetHeading = 0;
 		}else {
 			setTimeout(.01);
 			feedForwardVBus = 0;
+			targetHeading = 0;
 		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double proportionOffset = Robot.drivetrain.kVisionProportionConst * (Robot.frontWatcher.get_degrees_x() - initialHeading);
+		//calculate the proportion that the motors need to accomodate for drift by multiplying the vision constant
+		//by the x degrees from center subtracted from the target heading.
+		double proportionOffset = Robot.drivetrain.kVisionProportionConst * (Robot.frontWatcher.get_degrees_x() - targetHeading);
 	    
     	//the offset needs to be turned into vbus proportions for the two wheels.
     	//when the proportion is 0, the left and right gearboxes should run at the same vbus.
@@ -70,7 +73,7 @@ public class VisionDriveToFlag extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return isTimedOut() || Robot.roboRio.getFrontFlagSwitch();
+		return isTimedOut() || Robot.roboRio.getFrontFlagSwitch(); //end on timeout or on flag switch firing.
 	}
 
 	// Called once after isFinished returns true

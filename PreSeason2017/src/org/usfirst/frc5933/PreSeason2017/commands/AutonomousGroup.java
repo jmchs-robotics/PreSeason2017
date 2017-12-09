@@ -47,22 +47,28 @@ public class AutonomousGroup extends CommandGroup {
     	 * Basically, because the field is bumpy, we can't time it so well.
     	 */
     	
+    	//open claws as a "reset" action
+    	addParallel(new OpenAllClaws());
+    	
     	//drive forward to the flag
-    	addSequential(new DriveStraightGyro());
+    	addSequential(new DriveStraightGyro(-.3,7.2));
+    	
+    	//drive to the flag
+    	addSequential(new VisionDriveToFlag(.2,5)); //the claws will trigger automagically if the targeting is on.
     	
     	//grab the flag
-    	addSequential(new VisionDriveToFlag()); //the claws will trigger automagically if the targeting is on.
+    	addSequential(new CloseAllClaws());
     	
     	//drive backwards to the flag zone
-    	addSequential(new DriveStraightGyro());
+    	addSequential(new DriveStraightGyro(.3,7.2));
     	
     	//release the flag
-    	addSequential(new OpenAllClaws());
+    	addParallel(new OpenAllClaws());
     	
     	//turn away from the flag
-    	addSequential(new GyroTurn());
+    	addSequential(new GyroTurn(90,0,3,0.2));
     	
     	//drive away from the flag
-    	addSequential(new DriveStraightGyro());
+    	addSequential(new DriveStraightGyro(.3,2));
     }
 }

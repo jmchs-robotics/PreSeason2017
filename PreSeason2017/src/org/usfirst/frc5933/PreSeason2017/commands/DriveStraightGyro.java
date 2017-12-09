@@ -41,6 +41,14 @@ public class DriveStraightGyro extends Command {
         feedForwardVBus = -0.5;
         seconds = 5;
     }
+    
+    public DriveStraightGyro(double vbus, double timeout) {
+    	requires(Robot.drivetrain);
+    	requires(Robot.roboRio);
+    	
+    	feedForwardVBus = vbus;
+    	seconds = timeout;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() { //on start, zero the gyro and set the default heading. The gyroscope should be calibrated by this point.

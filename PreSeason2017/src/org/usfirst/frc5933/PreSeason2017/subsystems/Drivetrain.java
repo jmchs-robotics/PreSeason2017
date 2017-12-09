@@ -34,11 +34,18 @@ public class Drivetrain extends Subsystem {
 	public final double kGyroProportionConst = 0.02; //The proportion constant for the drive train -- NEEDS TO BE TESTED
 	
 	/**
+	 * The proportion constant for a P controller using the gyroscope to turn.
+	 * MUST be tested in a game/field environment before competition. Each PID
+	 * controller that we use may need unique constants, so name them appropriately.
+	 */
+	public final double kGyroTurnProportionConst = 12/180; //The proportion constant for the turns -- NEEDS TO BE TESTED
+	
+	/**
 	 * The proportion constant for a P controller using the vision processing. MUST be
 	 * tested in a game/field environment before competition. Each PID controller
 	 * that we use may need unique constants, so name them appropriately.
 	 */	
-	public final double kVisionProportionConst = 0.01;
+	public final double kVisionProportionConst = 0.007;
 	
 	/**
 	 * The state of the Talon SRXs w.r.t. brake mode. True if brake mode is enabled.
@@ -50,7 +57,10 @@ public class Drivetrain extends Subsystem {
 	 */
 	private boolean talonReverseMode = false;
 	
-	private double rampRate = 0;
+	/**
+	 * The limit that the motors can draw instantaneously to eliminate nasty shuddering.
+	 */
+	private final int ampLimit = 50;
 
 	private double talonNominalOutput = +0f;
 	private double talonPeakOutput = +12.0f;
@@ -132,6 +142,13 @@ public class Drivetrain extends Subsystem {
 		thirdLeft.set(frontLeft.get());
 		thirdRight.set(frontRight.get());
 	}
+	
+	public void arcadeDrive(double moveValue, double rotateValue) {
+		robotDrive.arcadeDrive(moveValue, rotateValue, false);
+		
+		thirdLeft.set(frontLeft.get());
+		thirdRight.set(frontRight.get());		
+	}
 
 	/**
 	 * When brake mode is enabled (true has been passed into this method) the TalonSRXs will actively 
@@ -186,5 +203,25 @@ public class Drivetrain extends Subsystem {
 		
 		thirdRight.configNominalOutputVoltage(talonNominalOutput, -talonNominalOutput);
 		thirdLeft.configPeakOutputVoltage(talonPeakOutput, -talonPeakOutput);
+	}
+	
+	public void configCurrentLimit(boolean enable) {
+		frontLeft.setCurrentLimit(ampLimit);
+		frontLeft.EnableCurrentLimit(enable);
+		
+		frontRight.setCurrentLimit(ampLimit);
+		frontRight.EnableCurrentLimit(enable);
+		
+		backLeft.setCurrentLimit(ampLimit);
+		backLeft.EnableCurrentLimit(enable);
+		
+		backRight.setCurrentLimit(ampLimit);
+		backRight.EnableCurrentLimit(enable);
+		
+		thirdLeft.setCurrentLimit(ampLimit);
+		thirdLeft.EnableCurrentLimit(enable);
+		
+		thirdRight.setCurrentLimit(ampLimit);
+		thirdLeft.EnableCurrentLimit(enable);
 	}
 }

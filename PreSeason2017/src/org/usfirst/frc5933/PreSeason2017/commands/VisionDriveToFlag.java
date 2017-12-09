@@ -3,6 +3,7 @@ package org.usfirst.frc5933.PreSeason2017.commands;
 import org.usfirst.frc5933.PreSeason2017.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * This is a challenge to any JudgeMent Call team member interested in software: Using the SocketVision object in
@@ -26,6 +27,7 @@ public class VisionDriveToFlag extends Command {
 	private double timeout;
 	private double feedForwardVBus;
 	private double targetHeading;
+	double offset = 3;
 
 	public VisionDriveToFlag() {
 		// Use requires() here to declare subsystem dependencies
@@ -34,7 +36,7 @@ public class VisionDriveToFlag extends Command {
 		requires(Robot.roboRio);
 		
 		feedForwardVBus = 0.5;
-		timeout = 7.5;
+		timeout = 2.5;
 	}
 	
 	public VisionDriveToFlag(double vbus, double timer) {
@@ -61,14 +63,14 @@ public class VisionDriveToFlag extends Command {
 	protected void execute() {
 		//calculate the proportion that the motors need to accomodate for drift by multiplying the vision constant
 		//by the x degrees from center subtracted from the target heading.
-		double proportionOffset = Robot.drivetrain.kVisionProportionConst * (Robot.frontWatcher.get_degrees_x() - targetHeading);
+		double proportionOffset = Robot.drivetrain.kVisionProportionConst * (Robot.frontWatcher.get_degrees_x() + offset - targetHeading);
 	    
     	//the offset needs to be turned into vbus proportions for the two wheels.
     	//when the proportion is 0, the left and right gearboxes should run at the same vbus.
     	//when the proportion is not 0, one side of the drivetrain should speed up and the other slow down.
     	
     	//This is the setup for our robot this year. It may switch with different drivetrain setups.
-    	Robot.drivetrain.tankDrive(feedForwardVBus - proportionOffset, feedForwardVBus + proportionOffset);
+    	Robot.drivetrain.tankDrive(-feedForwardVBus - proportionOffset, -feedForwardVBus + proportionOffset);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

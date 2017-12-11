@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
 	 * tested in a game/field environment before competition. Each PID controller
 	 * that we use may need unique constants, so name them appropriately.
 	 */	
-	public final double kVisionProportionConst = 0.007;
+	public final double kVisionProportionConst = 0.003;
 	
 	/**
 	 * The state of the Talon SRXs w.r.t. brake mode. True if brake mode is enabled.

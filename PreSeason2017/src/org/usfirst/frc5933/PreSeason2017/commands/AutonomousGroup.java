@@ -51,7 +51,9 @@ public class AutonomousGroup extends CommandGroup {
     	addParallel(new OpenAllClaws());
     	
     	//drive forward to the flag
-    	addSequential(new DriveStraightGyro(-.3,7.2));
+    	addSequential(new DriveStraightGyro(-.6,2.8));
+    	
+    	addSequential(new DriveStraightGyro(-.3, 0.5));
     	
     	//drive to the flag
     	addSequential(new VisionDriveToFlag(.2,5)); //the claws will trigger automagically if the targeting is on.
@@ -60,7 +62,7 @@ public class AutonomousGroup extends CommandGroup {
     	addSequential(new CloseAllClaws());
     	
     	//drive backwards to the flag zone
-    	addSequential(new DriveStraightGyro(.3,7.2));
+    	addSequential(new DriveStraightGyro(.6,4.7));
     	
     	//release the flag
     	addParallel(new OpenAllClaws());
